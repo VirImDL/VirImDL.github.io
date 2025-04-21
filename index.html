@@ -27,7 +27,7 @@
       --shadow: 0 2px 10px rgba(0,0,0,0.05);
       --radius: 8px;
     }
-    
+
     @media (prefers-color-scheme: dark) {
       :root {
         --bg-primary: #0f172a;
@@ -50,12 +50,12 @@
     }
 
     /* ---------- Reset & base ---------- */
-    * { 
+    * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-    
+
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background-color: var(--bg-primary);
@@ -74,7 +74,7 @@
       padding: 1.25rem 2rem;
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
-    
+
     h1 {
       font-size: 1.5rem;
       font-weight: 600;
@@ -86,7 +86,7 @@
       display: flex;
       flex: 1;
     }
-    
+
     /* ---------- Sidebar ---------- */
     .sidebar {
       background-color: var(--nav-bg);
@@ -96,8 +96,9 @@
       top: 0;
       height: 100vh;
       overflow-y: auto;
+      flex-shrink: 0; /* Prevent sidebar from shrinking */
     }
-    
+
     .sidebar-heading {
       font-size: 0.875rem;
       font-weight: 600;
@@ -106,15 +107,15 @@
       color: var(--text-secondary);
       margin-bottom: 1rem;
     }
-    
+
     .nav-list {
       list-style: none;
     }
-    
+
     .nav-item {
       margin-bottom: 0.5rem;
     }
-    
+
     .nav-link {
       display: block;
       padding: 0.75rem 1rem;
@@ -124,11 +125,11 @@
       font-weight: 500;
       transition: all 0.2s ease;
     }
-    
+
     .nav-link:hover {
       background-color: rgba(0,0,0,0.05);
     }
-    
+
     .nav-link.active {
       background-color: var(--nav-active-bg);
       color: var(--nav-active-text);
@@ -139,43 +140,63 @@
     .content {
       flex: 1;
       padding: 2rem;
+      min-width: 0; /* Allow content to shrink */
     }
-    
+
     .section {
       margin-bottom: 3rem;
     }
-    
-    .section-title {
-      font-size: 1.75rem;
-      font-weight: 600;
-      color: var(--section-heading);
+
+    /* Default layout - image next to text */
+    .section-header {
+      display: flex;
+      align-items: center;
       margin-bottom: 1.5rem;
       padding-bottom: 0.75rem;
       border-bottom: 1px solid var(--card-border);
     }
-    
+
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--section-heading);
+      margin: 0;
+      margin-right: 1rem; /* Add space between title and image */
+    }
+
     /* ---------- Repository grid ---------- */
     .repo-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 1.25rem;
     }
-    
+
     .repo-card {
       background-color: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: var(--radius);
-      padding: 1.25rem;
       transition: all 0.2s ease;
       box-shadow: var(--shadow);
+      overflow: hidden; /* Ensure image corners respect border-radius */
+      display: flex;
+      flex-direction: column; /* Stack content and image */
     }
-    
+
     .repo-card:hover {
       border-color: var(--card-border-hover);
       transform: translateY(-2px);
       box-shadow: 0 6px 12px rgba(0,0,0,0.1);
     }
-    
+
+    /* Container for the text content (title, desc) */
+    .repo-content {
+        padding: 1.25rem 1.25rem 0 1.25rem; /* Add padding top/sides */
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1; /* Allow content area to grow */
+        margin-bottom: 1rem; /* Add space between text and image */
+    }
+
     .repo-title {
       display: flex;
       align-items: center;
@@ -185,47 +206,82 @@
       font-size: 1rem;
       margin-bottom: 0.75rem;
     }
-    
+
     .repo-title a {
       color: var(--accent);
       text-decoration: none;
     }
-    
+
     .repo-title a:hover {
       color: var(--accent-hover);
       text-decoration: underline;
     }
-    
+
     .repo-desc {
       color: var(--text-secondary);
       font-size: 0.9375rem;
+      flex-grow: 1; /* Pushes image down if description is short */
     }
-    
+
+    /* Container for the image at the bottom */
+    .repo-image-container {
+       width: 100%; /* Span the full width */
+       line-height: 0; /* Prevent extra space below image */
+       /* margin-top: auto; Pushes image to bottom */
+    }
+
+    /* Style for the actual image element */
+    .repo-image-container img {
+        display: block; /* Remove extra space below image */
+        width: 100%;   /* Make image scale to container width */
+        height: auto;  /* Maintain aspect ratio */
+        object-fit: cover; /* Or 'contain' */
+        /* The overflow: hidden on .repo-card handles bottom corner radius */
+    }
+
+
     /* ---------- Responsive adjustments ---------- */
+    @media (max-width: 1024px) { /* Adjust breakpoint if needed */
+        .container {
+            flex-direction: column;
+        }
+        .sidebar {
+            width: 100%;
+            height: auto; /* Allow sidebar height to adjust */
+            position: static; /* Remove sticky positioning */
+            padding: 1rem;
+            border-bottom: 1px solid var(--card-border); /* Add separator */
+        }
+        .content {
+            padding: 1.5rem;
+        }
+    }
+
     @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-      }
-      
-      .sidebar {
-        width: 100%;
-        padding: 1rem;
-      }
-      
-      .content {
-        padding: 1.5rem;
-      }
-      
       .repo-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Stack cards on smaller screens */
+      }
+      .content {
+          padding: 1rem; /* Slightly less padding on mobile */
+      }
+      .repo-content {
+          padding: 1rem 1rem 0 1rem; /* Adjust padding for mobile */
+          margin-bottom: 1rem;
+      }
+      .repo-title {
+          font-size: 0.95rem; /* Slightly smaller title */
+      }
+      .repo-desc {
+          font-size: 0.9rem; /* Slightly smaller description */
       }
     }
-    
+
     /* GitHub icon */
     .gh-icon {
       width: 16px;
       height: 16px;
       fill: currentColor;
+      flex-shrink: 0; /* Prevent icon from shrinking */
     }
   </style>
 </head>
@@ -233,7 +289,7 @@
   <header>
     <h1>Deep Learning at the Division of Virology and Immunology</h1>
   </header>
-  
+
   <div class="container">
     <aside class="sidebar">
       <div class="sidebar-heading">Categories</div>
@@ -241,7 +297,7 @@
         <!-- Navigation will be inserted here -->
       </ul>
     </aside>
-    
+
     <main class="content" id="content">
       <!-- Content will be inserted here -->
     </main>
@@ -258,8 +314,8 @@
       category: "Frameworks",
       id: "frameworks",
       repos: [
-      {name:"Flowfusion.jl", url:"https://github.com/MurrellGroup/Flowfusion.jl", desc:"Unifying diffusion and flow matching on Euclidean & discrete spaces, and Riemannian manifolds."},
-      {name:"ForwardBackward.jl", url:"https://github.com/MurrellGroup/ForwardBackward.jl", desc:"Math and algorithms for sampling from and inference under stochastic processes."},
+      {name:"Flowfusion.jl", url:"https://github.com/MurrellGroup/Flowfusion.jl", desc:"Unifying diffusion and flow matching on Euclidean & discrete spaces, and Riemannian manifolds.", imageUrl: "https://github.com/user-attachments/assets/ff7f25e6-441d-4840-ac9c-a849e7b57aa7"},
+      {name:"ForwardBackward.jl", url:"https://github.com/MurrellGroup/ForwardBackward.jl", desc:"Math and algorithms for sampling from and inference under stochastic processes.", imageUrl: "https://github.com/user-attachments/assets/bf8aa54d-c1d2-4bf7-aff4-47419c9bd1e7"}, // Added example image
       ]
     },
     {
@@ -267,15 +323,15 @@
       id: "neural-layers",
       repos: [
         {name:"Onion.jl", url:"https://github.com/MurrellGroup/Onion.jl", desc:"A collection of useful layers."},
-        {name:"LowRankLayers.jl", url:"https://github.com/MurrellGroup/LowRankLayers.jl", desc:"Low‑rank adapters to piggyback upon Dense layers (useful for finetuning)."},
-        {name:"ConditionalDensityLayers.jl", url:"https://github.com/MurrellGroup/ConditionalDensityLayers.jl", desc:"Mapping an embedding to a continuous density."},
+        {name:"LowRankLayers.jl", url:"https://github.com/MurrellGroup/LowRankLayers.jl", desc:"Low‑rank adapters to piggyback upon Dense layers (useful for finetuning)."}, // Placeholder
+        {name:"ConditionalDensityLayers.jl", url:"https://github.com/MurrellGroup/ConditionalDensityLayers.jl", desc:"Mapping an embedding to a continuous density." , imageUrl: "https://github.com/user-attachments/assets/ffcbc501-1aca-465a-956e-fd31cc76c739"},
       ]
-    },  
+    },
     {
       category: "Rotation and translation invariance",
       id: "rototrans",
       repos: [
-        {name:"InvariantPointAttention.jl", url:"https://github.com/MurrellGroup/InvariantPointAttention.jl", desc:"AlphaFold 2's IPA block, with extra tricks (softmax1, and block-wise RoPE). Used in `The Continuous Language of Protein Structure`"},
+        {name:"InvariantPointAttention.jl", url:"https://github.com/MurrellGroup/InvariantPointAttention.jl", desc:"AlphaFold 2's IPA, with extra tricks (softmax1, and block-wise RoPE).", imageUrl: "https://github.com/user-attachments/assets/e0490c77-5a0a-4f2f-a218-643990ecf8dd"}, // Placeholder
         {name:"MessagePassingIPA.jl", url:"https://github.com/MurrellGroup/MessagePassingIPA.jl", desc:"IPA, but for graph neural networks."},
         {name:"RotationMap.jl", url:"https://github.com/MurrellGroup/RotationMap.jl", desc:"A differentiable parameterization of SO(3) rotations (from `An analysis of svd for deep rotation estimation`)."},
       ]
@@ -284,19 +340,20 @@
       category: "Protein-specific models and utils",
       id: "protein-models",
       repos: [
-      {name:"ProteinChains.jl", url:"https://github.com/MurrellGroup/ProteinChains.jl", desc:"Convert PDB entries to deep-learning compatible data structures."},  
-      {name:"BackboneIdealization.jl", url:"https://github.com/MurrellGroup/BackboneIdealization.jl", desc:"Differentiable idealisation of backbone geometry - useful for dihedral models."},
-      {name:"ProtPlot.jl", url:"https://github.com/MurrellGroup/ProtPlot.jl", desc:"Makie‑based protein attention maps and ribbon plots."},
+      {name:"ProteinChains.jl", url:"https://github.com/MurrellGroup/ProteinChains.jl", desc:"Convert PDB entries to deep-learning compatible data structures.", imageUrl: "https://github.com/user-attachments/assets/8861edc7-9344-4512-b25c-bd583b324103"},
+      {name:"BackboneIdealization.jl", url:"https://github.com/MurrellGroup/BackboneIdealization.jl", desc:"Differentiable idealisation of backbone geometry - useful for dihedral models", imageUrl: "https://github.com/user-attachments/assets/771b3274-580e-4823-a2d3-b0c95aadecec"},
+      {name:"ProtPlot.jl", url:"https://github.com/MurrellGroup/ProtPlot.jl", desc:"Makie‑based protein attention maps and ribbon plots.", imageUrl: "https://github.com/user-attachments/assets/35f74a99-00be-4c01-bb56-8508bf0951d2"},
       {name:"Boltz1.jl - a wrapper", url:"https://github.com/MurrellGroup/Boltz1.jl", desc:"Julia wrapper for the Boltz‑1 diffusion‑folding model."},
       {name:"ColabMPNN.jl - a wrapper", url:"https://github.com/MurrellGroup/ColabMPNN.jl", desc:"Julia wrapper for the ColabDesign version of ProteinMPNN."},
-      {name:"TMscore.jl - a wrapper", url:"https://github.com/MurrellGroup/TMscore.jl", desc:"Julia wrapper for TM‑score calculations."}, 
+      {name:"TMscore.jl - a wrapper", url:"https://github.com/MurrellGroup/TMscore.jl", desc:"Julia wrapper for TM‑score calculations."},
       ]
     },
     {
       category: "Large Language Models",
       id: "llms",
+      // imageUrl: "https://example.com/images/llm.jpg", // Optional category image (removed for now)
       repos: [
-      {name:"Jjama3.jl", url:"https://github.com/MurrellGroup/Jjama3.jl", desc:"A pure-Julia implementation of the Llama3 model family (and more)."},
+      {name:"Jjama3.jl", url:"https://github.com/MurrellGroup/Jjama3.jl", desc:"A pure-Julia implementation of the Llama3 model family (and more).", imageUrl: "https://github.com/user-attachments/assets/5749604f-3fb8-413b-be36-27876527ef45"},
       {name:"HuggingFaceTransformers.jl", url:"https://github.com/MurrellGroup/HuggingFaceTransformers.jl", desc:"Julia wrapper for HuggingFace Transformers in Julia."},
       {name:"HuggingFaceTokenizers.jl", url:"https://github.com/MurrellGroup/HuggingFaceTokenizers.jl", desc:"Julia wrapper for HuggingFace Tokenizers in Julia."}
       ]
@@ -305,131 +362,218 @@
       category: "Visualisation & embedding tools",
       id: "visualization-tools",
       repos: [
-        {name:"SeqUMAP.jl", url:"https://github.com/MurrellGroup/SeqUMAP.jl", desc:"UMAP, but for variable-length nucleotide and amino acid sequences"}
+        {name:"SeqUMAP.jl", url:"https://github.com/MurrellGroup/SeqUMAP.jl", desc:"UMAP, but for variable-length nucleotide and amino acid sequences", imageUrl: "https://github.com/user-attachments/assets/de3c55e5-0824-4cc0-a6ff-45739b225ed0"}
       ]
     }
   ];
 
   /* Render navigation */
   const navList = document.getElementById('nav-list');
-  let activeCategory = catalogue[0].id;
-  
+  let activeCategory = catalogue[0].id; // Keep track of active category
+
   catalogue.forEach((cat, index) => {
     const li = document.createElement('li');
     li.className = 'nav-item';
-    
+
     const a = document.createElement('a');
     a.className = 'nav-link';
     if (index === 0) a.className += ' active';
     a.href = '#' + cat.id;
     a.textContent = cat.category;
-    a.dataset.category = cat.id;
-    
+    a.dataset.category = cat.id; // Use data attribute for easier selection
+
     a.addEventListener('click', (e) => {
-      // Update active state
-      document.querySelectorAll('.nav-link').forEach(link => {
+      e.preventDefault(); // Prevent default jump
+
+      // Update active state in nav
+      document.querySelectorAll('.nav-link.active').forEach(link => {
         link.classList.remove('active');
       });
       e.target.classList.add('active');
-      
-      // Update active category
+
+      // Update active category variable
       activeCategory = cat.id;
-      
-      // Scroll to section
+
+      // Scroll to the section smoothly
       const section = document.getElementById(cat.id);
-      section.scrollIntoView({ behavior: 'smooth' });
-      
-      e.preventDefault();
+      if (section) {
+        // Calculate offset considering fixed header if needed
+        const headerOffset = document.querySelector('header')?.offsetHeight || 0;
+        // Adjust for potential top padding/margin of the content area if needed
+        const elementPosition = section.getBoundingClientRect().top + window.scrollY;
+        const offsetPosition = elementPosition - headerOffset - 20; // Extra 20px padding
+
+        window.scrollTo({
+             top: offsetPosition,
+             behavior: "smooth"
+        });
+      }
     });
-    
+
     li.appendChild(a);
     navList.appendChild(li);
   });
 
   /* Render content */
   const contentContainer = document.getElementById('content');
-  
+
   catalogue.forEach(cat => {
     // Create section
     const section = document.createElement('section');
     section.className = 'section';
     section.id = cat.id;
-    
+
+    // Create section header
+    const sectionHeader = document.createElement('div');
+    sectionHeader.className = 'section-header';
+
     // Create section title
     const title = document.createElement('h2');
     title.className = 'section-title';
     title.textContent = cat.category;
-    section.appendChild(title);
-    
+    sectionHeader.appendChild(title);
+
+    section.appendChild(sectionHeader);
+
     // Create repo grid
     const repoGrid = document.createElement('div');
     repoGrid.className = 'repo-grid';
-    
+
     // Add repos to grid
     cat.repos.forEach(repo => {
       const card = document.createElement('div');
       card.className = 'repo-card';
-      
-      const repoTitle = document.createElement('div');
-      repoTitle.className = 'repo-title';
-      
+
+      // --- Create elements ---
+      // Content first
+      const repoContentDiv = document.createElement('div'); // Container for text content
+      const repoTitleDiv = document.createElement('div');
       const repoLink = document.createElement('a');
+      const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      const repoDescDiv = document.createElement('div');
+
+      // Image elements (conditionally created)
+      const repoImageContainer = repo.imageUrl ? document.createElement('div') : null;
+      const repoImage = repo.imageUrl ? document.createElement('img') : null;
+
+
+      // --- Configure Content Elements ---
+      repoContentDiv.className = 'repo-content';
+
+      // Title container
+      repoTitleDiv.className = 'repo-title';
+
+      // Link
       repoLink.href = repo.url;
       repoLink.target = '_blank';
       repoLink.rel = 'noopener noreferrer';
-      
-      // Add GitHub icon
-      const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+
+      // GitHub Icon
       icon.setAttribute('class', 'gh-icon');
       icon.setAttribute('viewBox', '0 0 16 16');
       icon.setAttribute('aria-hidden', 'true');
-      
-      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       path.setAttribute('d', 'M8 0C3.58 0 0 3.58 0 8a8 8 0 005.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 018 4.58c.68.003 1.36.092 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z');
       icon.appendChild(path);
-      
+
+      // Assemble Link
       repoLink.appendChild(icon);
-      repoLink.appendChild(document.createTextNode(repo.name));
-      
-      repoTitle.appendChild(repoLink);
-      
-      const repoDesc = document.createElement('div');
-      repoDesc.className = 'repo-desc';
-      repoDesc.textContent = repo.desc;
-      
-      card.appendChild(repoTitle);
-      card.appendChild(repoDesc);
-      
+      repoLink.appendChild(document.createTextNode(' ' + repo.name)); // Add space
+
+      // Assemble Title
+      repoTitleDiv.appendChild(repoLink);
+
+      // Description
+      repoDescDiv.className = 'repo-desc';
+      repoDescDiv.textContent = repo.desc;
+
+      // Assemble Content Area
+      repoContentDiv.appendChild(repoTitleDiv);
+      repoContentDiv.appendChild(repoDescDiv);
+
+      // --- Configure Image Elements (if they exist) ---
+      if (repoImageContainer && repoImage) {
+        repoImageContainer.className = 'repo-image-container';
+        repoImage.src = repo.imageUrl;
+        repoImage.alt = repo.name + ' preview'; // Add alt text
+        repoImage.loading = 'lazy'; // Lazy load images
+        repoImageContainer.appendChild(repoImage);
+      }
+
+      // --- Append elements to card in order ---
+      card.appendChild(repoContentDiv); // Content area first
+      if (repoImageContainer) {
+        card.appendChild(repoImageContainer); // Then image container (at the bottom)
+      }
+
       repoGrid.appendChild(card);
     });
-    
+
     section.appendChild(repoGrid);
     contentContainer.appendChild(section);
   });
 
   /* Scroll spy for navigation */
-  window.addEventListener('scroll', () => {
+  // Debounce function to limit scroll handler frequency
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  const scrollHandler = debounce(() => {
     const sections = document.querySelectorAll('.section');
-    let currentSection = '';
-    
+    let bestMatch = '';
+    let smallestDistance = Infinity;
+    const viewportCenter = window.innerHeight / 2;
+
     sections.forEach(section => {
-      const sectionTop = section.offsetTop - 100;
-      if (window.scrollY >= sectionTop) {
-        currentSection = section.getAttribute('id');
+      const rect = section.getBoundingClientRect();
+      // Calculate distance from the top of the section to the center of the viewport
+      // Give slightly more weight to sections closer to the top
+      const distance = Math.abs(rect.top - viewportCenter * 0.5);
+
+      // Check if the section is at all visible or near the viewport center
+      if (rect.top < window.innerHeight && rect.bottom > 0 && distance < smallestDistance) {
+          smallestDistance = distance;
+          bestMatch = section.getAttribute('id');
       }
     });
-    
-    if (currentSection !== activeCategory && currentSection) {
-      // Update navigation
+
+    if (bestMatch && bestMatch !== activeCategory) {
+      // Update navigation only if the best matching section is different
       document.querySelectorAll('.nav-link').forEach(link => {
         link.classList.remove('active');
-        if (link.dataset.category === currentSection) {
+        if (link.dataset.category === bestMatch) {
           link.classList.add('active');
-          activeCategory = currentSection;
         }
       });
+      activeCategory = bestMatch; // Update the tracked active category
+    } else if (!bestMatch && window.scrollY === 0) {
+        // Special case: If scrolled to the very top, activate the first category
+        const firstCategoryId = catalogue[0].id;
+         if (firstCategoryId !== activeCategory) {
+             document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.category === firstCategoryId) {
+                    link.classList.add('active');
+                }
+            });
+            activeCategory = firstCategoryId;
+         }
     }
-  });
+  }, 50); // Run at most every 50ms
+
+  window.addEventListener('scroll', scrollHandler);
+  // Initial call to set correct state on load
+  scrollHandler();
+
   </script>
 </body>
 </html>
