@@ -5,119 +5,226 @@
   <title>Deep Learning at the Division of Virology and Immunology</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Typography -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <style>
     /* ---------- Theme palette ---------- */
     :root {
-      --bg: #f6f8fa;           /* GitHub‑like light gray */
-      --card: #ffffff;         /* white cards */
-      --accent: #0b5fff;       /* primary blue */
-      --text: #24292f;         /* dark for readability */
-      --radius: 10px;
-      --shadow: 0 2px 5px rgba(0,0,0,.06);
+      --bg-primary: #f0f9ff;
+      --bg-secondary: #ffffff;
+      --nav-bg: #e0f2fe;
+      --header-bg: #0ea5e9;
+      --header-text: #ffffff;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --accent: #0ea5e9;
+      --accent-hover: #0284c7;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --card-border-hover: #cbd5e0;
+      --section-heading: #0f172a;
+      --nav-active-bg: #bae6fd;
+      --nav-active-text: #0369a1;
+      --shadow: 0 2px 10px rgba(0,0,0,0.05);
+      --radius: 8px;
     }
+    
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #0d1117;
-        --card: #161b22;
-        --accent: #3b82f6;
-        --text: #e6edf3;
-        --shadow: 0 2px 6px rgba(0,0,0,.4);
+        --bg-primary: #0f172a;
+        --bg-secondary: #1e293b;
+        --nav-bg: #1e293b;
+        --header-bg: #0284c7;
+        --header-text: #f8fafc;
+        --text-primary: #f1f5f9;
+        --text-secondary: #94a3b8;
+        --accent: #38bdf8;
+        --accent-hover: #0ea5e9;
+        --card-bg: #1e293b;
+        --card-border: #334155;
+        --card-border-hover: #475569;
+        --section-heading: #f1f5f9;
+        --nav-active-bg: #0c4a6e;
+        --nav-active-text: #38bdf8;
+        --shadow: 0 2px 10px rgba(0,0,0,0.2);
       }
     }
 
     /* ---------- Reset & base ---------- */
-    * { box-sizing: border-box; }
-    body {
+    * { 
+      box-sizing: border-box;
       margin: 0;
-      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
     /* ---------- Header ---------- */
     header {
-      background: linear-gradient(135deg, var(--accent) 0%, #6a8dff 100%);
-      color: #fff;
-      text-align: center;
-      padding: 4rem 1rem 6rem; /* extra bottom so main can overlap */
-      position: relative;
-      overflow: hidden;
+      background-color: var(--header-bg);
+      color: var(--header-text);
+      padding: 1.25rem 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
-    header::after {          /* decorative diagonal */
-      content: "";
-      position: absolute;
-      bottom: -40px;
-      left: 0;
-      width: 100%;
-      height: 80px;
-      background: var(--bg);
-      transform: skewY(-4deg);
-      transform-origin: 0 0;
-    }
+    
     h1 {
-      font-size: clamp(2.2rem, 4vw, 3rem);
-      font-weight: 700;
+      font-size: 1.5rem;
+      font-weight: 600;
       margin: 0;
-      z-index: 1;
-      position: relative;
     }
 
     /* ---------- Layout ---------- */
-    main {
-      max-width: 900px;
-      margin: -4rem auto 3rem; /* pulls main up over header diagonal */
-      padding: 0 1rem 4rem;
-    }
-
-    section { margin-top: 2rem; }
-
-    /* ---------- Accordion cards ---------- */
-    details {
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden; /* clip summary gradient */
-      transition: box-shadow .2s;
-    }
-    details[open] { box-shadow: 0 4px 14px rgba(0,0,0,.08); }
-
-    summary {
-      list-style: none;
-      cursor: pointer;
-      padding: 1rem 1.25rem;
-      font-size: 1.05rem;
-      font-weight: 600;
-      background: linear-gradient(90deg, var(--card) 0%, rgba(0,0,0,0) 100%);
-      user-select: none;
-    }
-    summary::-webkit-details-marker { display: none; }
-
-    /* ---------- Repo cards ---------- */
-    .repo {
+    .container {
       display: flex;
-      flex-direction: column;
-      gap: .25rem;
-      padding: .9rem 1.25rem;
-      border-top: 1px solid rgba(0,0,0,.05);
+      flex: 1;
     }
-    .repo:first-of-type { border-top: none; }
-
-    a.repo-link {
+    
+    /* ---------- Sidebar ---------- */
+    .sidebar {
+      background-color: var(--nav-bg);
+      width: 280px;
+      padding: 1.5rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    
+    .sidebar-heading {
+      font-size: 0.875rem;
       font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+    
+    .nav-list {
+      list-style: none;
+    }
+    
+    .nav-item {
+      margin-bottom: 0.5rem;
+    }
+    
+    .nav-link {
+      display: block;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius);
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    
+    .nav-link:hover {
+      background-color: rgba(0,0,0,0.05);
+    }
+    
+    .nav-link.active {
+      background-color: var(--nav-active-bg);
+      color: var(--nav-active-text);
+      font-weight: 600;
+    }
+
+    /* ---------- Main content ---------- */
+    .content {
+      flex: 1;
+      padding: 2rem;
+    }
+    
+    .section {
+      margin-bottom: 3rem;
+    }
+    
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--section-heading);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+    
+    /* ---------- Repository grid ---------- */
+    .repo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+    
+    .repo-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow);
+    }
+    
+    .repo-card:hover {
+      border-color: var(--card-border-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    }
+    
+    .repo-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .repo-title a {
       color: var(--accent);
       text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: .4rem;
     }
-    a.repo-link:hover { text-decoration: underline; }
-    .repo p { margin: 0; font-size: .9rem; line-height: 1.45; }
-
-    /* ---------- Utility ---------- */
+    
+    .repo-title a:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+    
+    .repo-desc {
+      color: var(--text-secondary);
+      font-size: 0.9375rem;
+    }
+    
+    /* ---------- Responsive adjustments ---------- */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        padding: 1rem;
+      }
+      
+      .content {
+        padding: 1.5rem;
+      }
+      
+      .repo-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* GitHub icon */
     .gh-icon {
-      width: 16px; height: 16px;
+      width: 16px;
+      height: 16px;
       fill: currentColor;
     }
   </style>
@@ -126,98 +233,202 @@
   <header>
     <h1>Deep Learning at the Division of Virology and Immunology</h1>
   </header>
-
-  <main id="content"></main>
+  
+  <div class="container">
+    <aside class="sidebar">
+      <div class="sidebar-heading">Categories</div>
+      <ul class="nav-list" id="nav-list">
+        <!-- Navigation will be inserted here -->
+      </ul>
+    </aside>
+    
+    <main class="content" id="content">
+      <!-- Content will be inserted here -->
+    </main>
+  </div>
 
   <script>
   /*
    * --------------------------------------------------------------------
-   *   Maintain the catalogue below. Add / remove entries – that’s it.
+   *   Maintain the catalogue below. Add / remove entries – that's it.
    * --------------------------------------------------------------------
    */
   const catalogue = [
     {
-      category: "Neural‑network layers & building blocks",
+      category: "Frameworks",
+      id: "frameworks",
       repos: [
-        {name:"Onion.jl", url:"https://github.com/MurrellGroup/Onion.jl", desc:"Compile‑time safe, zero‑allocation neural layers."},
-        {name:"LowRankLayers.jl", url:"https://github.com/MurrellGroup/LowRankLayers.jl", desc:"Parameter‑efficient low‑rank linear/conv layers."},
-        {name:"ConditionalDensityLayers.jl", url:"https://github.com/MurrellGroup/ConditionalDensityLayers.jl", desc:"Coupling transforms for conditional normalising flows."},
-        {name:"RotationMap.jl", url:"https://github.com/MurrellGroup/RotationMap.jl", desc:"Lie‑group SO(3) parameterisations as differentiable layers."},
-        {name:"Diffusions.jl", url:"https://github.com/MurrellGroup/Diffusions.jl", desc:"Core schedules and samplers for diffusion models."},
-        {name:"Flowfusion.jl", url:"https://github.com/MurrellGroup/Flowfusion.jl", desc:"Macro‑based fusion of bijectors for faster flows."}
+      {name:"Flowfusion.jl", url:"https://github.com/MurrellGroup/Flowfusion.jl", desc:"Unifying diffusion and flow matching on Euclidean & discrete spaces, and Riemannian manifolds."},
+      {name:"ForwardBackward.jl", url:"https://github.com/MurrellGroup/ForwardBackward.jl", desc:"Math and algorithms for sampling from and inference under stochastic processes."},
       ]
     },
     {
-      category: "Protein‑structure & design models",
+      category: "Layers",
+      id: "neural-layers",
       repos: [
-        {name:"InvariantPointAttention.jl", url:"https://github.com/MurrellGroup/InvariantPointAttention.jl", desc:"Julia port of AlphaFold 2’s IPA block."},
-        {name:"MessagePassingIPA.jl", url:"https://github.com/MurrellGroup/MessagePassingIPA.jl", desc:"Graph message passing combined with IPA."},
-        {name:"Boltz1.jl", url:"https://github.com/MurrellGroup/Boltz1.jl", desc:"Bindings for the Boltz‑1 diffusion‑folding model."},
-        {name:"ColabMPNN.jl", url:"https://github.com/MurrellGroup/ColabMPNN.jl", desc:"Julia wrapper for the ColabDesign protein MPNN."},
-        {name:"BackboneIdealization.jl", url:"https://github.com/MurrellGroup/BackboneIdealization.jl", desc:"Differentiable idealisation of polypeptide backbones."},
-        {name:"Backboner.jl", url:"https://github.com/MurrellGroup/Backboner.jl", desc:"Differentiable geometry utilities for protein chains."},
-        {name:"TMscore.jl", url:"https://github.com/MurrellGroup/TMscore.jl", desc:"Fast TM‑score binding for differentiable training."},
-        {name:"SeededAlignment.jl", url:"https://github.com/MurrellGroup/SeededAlignment.jl", desc:"Fast seed‑and‑extend aligner feeding MSA features."},
-        {name:"ProteinChains.jl", url:"https://github.com/MurrellGroup/ProteinChains.jl", desc:"Data structures for chain‑level protein ops."}
+        {name:"Onion.jl", url:"https://github.com/MurrellGroup/Onion.jl", desc:"A collection of useful layers."},
+        {name:"LowRankLayers.jl", url:"https://github.com/MurrellGroup/LowRankLayers.jl", desc:"Low‑rank adapters to piggyback upon Dense layers (useful for finetuning)."},
+        {name:"ConditionalDensityLayers.jl", url:"https://github.com/MurrellGroup/ConditionalDensityLayers.jl", desc:"Mapping an embedding to a continuous density."},
+      ]
+    },  
+    {
+      category: "Rotation and translation invariance",
+      id: "rototrans",
+      repos: [
+        {name:"InvariantPointAttention.jl", url:"https://github.com/MurrellGroup/InvariantPointAttention.jl", desc:"AlphaFold 2's IPA block, with extra tricks (softmax1, and block-wise RoPE). Used in `The Continuous Language of Protein Structure`"},
+        {name:"MessagePassingIPA.jl", url:"https://github.com/MurrellGroup/MessagePassingIPA.jl", desc:"IPA, but for graph neural networks."},
+        {name:"RotationMap.jl", url:"https://github.com/MurrellGroup/RotationMap.jl", desc:"A differentiable parameterization of SO(3) rotations (from `An analysis of svd for deep rotation estimation`)."},
       ]
     },
     {
-      category: "Generative & geometric flows",
+      category: "Protein-specific models and utils",
+      id: "protein-models",
       repos: [
-        {name:"ManifoldFlows.jl", url:"https://github.com/MurrellGroup/ManifoldFlows.jl", desc:"Normalising flows respecting embedded manifold constraints."},
-        {name:"MaskedStates.jl", url:"https://github.com/MurrellGroup/MaskedStates.jl", desc:"Masked autoregressive flows on protein torsion states."}
+      {name:"ProteinChains.jl", url:"https://github.com/MurrellGroup/ProteinChains.jl", desc:"Convert PDB entries to deep-learning compatible data structures."},  
+      {name:"BackboneIdealization.jl", url:"https://github.com/MurrellGroup/BackboneIdealization.jl", desc:"Differentiable idealisation of backbone geometry - useful for dihedral models."},
+      {name:"ProtPlot.jl", url:"https://github.com/MurrellGroup/ProtPlot.jl", desc:"Makie‑based protein attention maps and ribbon plots."},
+      {name:"Boltz1.jl - a wrapper", url:"https://github.com/MurrellGroup/Boltz1.jl", desc:"Julia wrapper for the Boltz‑1 diffusion‑folding model."},
+      {name:"ColabMPNN.jl - a wrapper", url:"https://github.com/MurrellGroup/ColabMPNN.jl", desc:"Julia wrapper for the ColabDesign version of ProteinMPNN."},
+      {name:"TMscore.jl - a wrapper", url:"https://github.com/MurrellGroup/TMscore.jl", desc:"Julia wrapper for TM‑score calculations."}, 
       ]
     },
     {
-      category: "NLP & tokenisation",
+      category: "Large Language Models",
+      id: "llms",
       repos: [
-        {name:"HuggingFaceTokenizers.jl", url:"https://github.com/MurrellGroup/HuggingFaceTokenizers.jl", desc:"High‑performance bindings to 🤗 Tokenizers."},
-        {name:"HuggingFaceTransformers.jl", url:"https://github.com/MurrellGroup/HuggingFaceTransformers.jl", desc:"Experimental wrapper for 🤗 Transformers in Julia."}
+      {name:"Jjama3.jl", url:"https://github.com/MurrellGroup/Jjama3.jl", desc:"A pure-Julia implementation of the Llama3 model family (and more)."},
+      {name:"HuggingFaceTransformers.jl", url:"https://github.com/MurrellGroup/HuggingFaceTransformers.jl", desc:"Julia wrapper for HuggingFace Transformers in Julia."},
+      {name:"HuggingFaceTokenizers.jl", url:"https://github.com/MurrellGroup/HuggingFaceTokenizers.jl", desc:"Julia wrapper for HuggingFace Tokenizers in Julia."}
       ]
     },
     {
       category: "Visualisation & embedding tools",
+      id: "visualization-tools",
       repos: [
-        {name:"ProtPlot.jl", url:"https://github.com/MurrellGroup/ProtPlot.jl", desc:"Makie‑based protein attention maps and ribbon plots."},
-        {name:"SeqUMAP.jl", url:"https://github.com/MurrellGroup/SeqUMAP.jl", desc:"GPU‑accelerated UMAP for sequence and latent‑space visualisation."}
+        {name:"SeqUMAP.jl", url:"https://github.com/MurrellGroup/SeqUMAP.jl", desc:"UMAP, but for variable-length nucleotide and amino acid sequences"}
       ]
     }
   ];
 
-  /* ---------- Render catalogue ---------- */
-  const container = document.getElementById('content');
-
-  catalogue.forEach(cat => {
-    const section = document.createElement('section');
-    const details = document.createElement('details');
-    details.open = true;
-
-    const summary = document.createElement('summary');
-    summary.textContent = cat.category;
-    details.appendChild(summary);
-
-    cat.repos.forEach(({name, url, desc}) => {
-      const repo = document.createElement('div');
-      repo.className = 'repo';
-
-      const link = document.createElement('a');
-      link.href = url;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      link.className = 'repo-link';
-      link.innerHTML =
-        `<svg class="gh-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 005.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 018 4.58c.68.003 1.36.092 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>${name}`;
-      repo.appendChild(link);
-
-      const p = document.createElement('p');
-      p.textContent = desc;
-      repo.appendChild(p);
-
-      details.appendChild(repo);
+  /* Render navigation */
+  const navList = document.getElementById('nav-list');
+  let activeCategory = catalogue[0].id;
+  
+  catalogue.forEach((cat, index) => {
+    const li = document.createElement('li');
+    li.className = 'nav-item';
+    
+    const a = document.createElement('a');
+    a.className = 'nav-link';
+    if (index === 0) a.className += ' active';
+    a.href = '#' + cat.id;
+    a.textContent = cat.category;
+    a.dataset.category = cat.id;
+    
+    a.addEventListener('click', (e) => {
+      // Update active state
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+      });
+      e.target.classList.add('active');
+      
+      // Update active category
+      activeCategory = cat.id;
+      
+      // Scroll to section
+      const section = document.getElementById(cat.id);
+      section.scrollIntoView({ behavior: 'smooth' });
+      
+      e.preventDefault();
     });
+    
+    li.appendChild(a);
+    navList.appendChild(li);
+  });
 
-    section.appendChild(details);
-    container.appendChild(section);
+  /* Render content */
+  const contentContainer = document.getElementById('content');
+  
+  catalogue.forEach(cat => {
+    // Create section
+    const section = document.createElement('section');
+    section.className = 'section';
+    section.id = cat.id;
+    
+    // Create section title
+    const title = document.createElement('h2');
+    title.className = 'section-title';
+    title.textContent = cat.category;
+    section.appendChild(title);
+    
+    // Create repo grid
+    const repoGrid = document.createElement('div');
+    repoGrid.className = 'repo-grid';
+    
+    // Add repos to grid
+    cat.repos.forEach(repo => {
+      const card = document.createElement('div');
+      card.className = 'repo-card';
+      
+      const repoTitle = document.createElement('div');
+      repoTitle.className = 'repo-title';
+      
+      const repoLink = document.createElement('a');
+      repoLink.href = repo.url;
+      repoLink.target = '_blank';
+      repoLink.rel = 'noopener noreferrer';
+      
+      // Add GitHub icon
+      const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      icon.setAttribute('class', 'gh-icon');
+      icon.setAttribute('viewBox', '0 0 16 16');
+      icon.setAttribute('aria-hidden', 'true');
+      
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', 'M8 0C3.58 0 0 3.58 0 8a8 8 0 005.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 018 4.58c.68.003 1.36.092 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z');
+      icon.appendChild(path);
+      
+      repoLink.appendChild(icon);
+      repoLink.appendChild(document.createTextNode(repo.name));
+      
+      repoTitle.appendChild(repoLink);
+      
+      const repoDesc = document.createElement('div');
+      repoDesc.className = 'repo-desc';
+      repoDesc.textContent = repo.desc;
+      
+      card.appendChild(repoTitle);
+      card.appendChild(repoDesc);
+      
+      repoGrid.appendChild(card);
+    });
+    
+    section.appendChild(repoGrid);
+    contentContainer.appendChild(section);
+  });
+
+  /* Scroll spy for navigation */
+  window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('.section');
+    let currentSection = '';
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 100;
+      if (window.scrollY >= sectionTop) {
+        currentSection = section.getAttribute('id');
+      }
+    });
+    
+    if (currentSection !== activeCategory && currentSection) {
+      // Update navigation
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+        if (link.dataset.category === currentSection) {
+          link.classList.add('active');
+          activeCategory = currentSection;
+        }
+      });
+    }
   });
   </script>
 </body>
