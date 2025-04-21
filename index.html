@@ -4,45 +4,136 @@
   <meta charset="utf-8">
   <title>Deep Learning at the Division of Virology and Immunology</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    /* ---------- Theme palette ---------- */
     :root {
-      --bg: #fafafa;
-      --card-bg: #ffffff;
-      --accent: #0070f3;
-      --text: #333333;
-      --radius: 8px;
-      --shadow: 0 1px 4px rgba(0,0,0,.1);
+      --bg: #f6f8fa;           /* GitHub‑like light gray */
+      --card: #ffffff;         /* white cards */
+      --accent: #0b5fff;       /* primary blue */
+      --text: #24292f;         /* dark for readability */
+      --radius: 10px;
+      --shadow: 0 2px 5px rgba(0,0,0,.06);
     }
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;padding:0 1rem}
-    header{padding:2rem 0;text-align:center}
-    h1{font-size:clamp(1.8rem,3vw,2.4rem);font-weight:700}
-    section{margin:2rem 0}
-    details{border:1px solid #e0e0e0;border-radius:var(--radius);padding:1rem;background:var(--card-bg);box-shadow:var(--shadow)}
-    details + details{margin-top:1rem}
-    summary{cursor:pointer;font-size:1.2rem;font-weight:600;margin:-.5rem -.5rem 1rem -.5rem;padding:.5rem;border-radius:var(--radius);list-style:none}
-    summary::-webkit-details-marker{display:none}
-    summary:hover{background:#f0f0f0}
-    .repo-card{background:var(--card-bg);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow);margin:.5rem 0}
-    .repo-card a{color:var(--accent);font-weight:600;text-decoration:none;font-size:1.05rem}
-    .repo-card p{margin:.3rem 0 0 0;font-size:.9rem}
-    @media (min-width:700px){.repo-card{display:flex;align-items:center;gap:1rem}.repo-card p{margin:0}}
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d1117;
+        --card: #161b22;
+        --accent: #3b82f6;
+        --text: #e6edf3;
+        --shadow: 0 2px 6px rgba(0,0,0,.4);
+      }
+    }
+
+    /* ---------- Reset & base ---------- */
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---------- Header ---------- */
+    header {
+      background: linear-gradient(135deg, var(--accent) 0%, #6a8dff 100%);
+      color: #fff;
+      text-align: center;
+      padding: 4rem 1rem 6rem; /* extra bottom so main can overlap */
+      position: relative;
+      overflow: hidden;
+    }
+    header::after {          /* decorative diagonal */
+      content: "";
+      position: absolute;
+      bottom: -40px;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      background: var(--bg);
+      transform: skewY(-4deg);
+      transform-origin: 0 0;
+    }
+    h1 {
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      font-weight: 700;
+      margin: 0;
+      z-index: 1;
+      position: relative;
+    }
+
+    /* ---------- Layout ---------- */
+    main {
+      max-width: 900px;
+      margin: -4rem auto 3rem; /* pulls main up over header diagonal */
+      padding: 0 1rem 4rem;
+    }
+
+    section { margin-top: 2rem; }
+
+    /* ---------- Accordion cards ---------- */
+    details {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden; /* clip summary gradient */
+      transition: box-shadow .2s;
+    }
+    details[open] { box-shadow: 0 4px 14px rgba(0,0,0,.08); }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 1rem 1.25rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+      background: linear-gradient(90deg, var(--card) 0%, rgba(0,0,0,0) 100%);
+      user-select: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+
+    /* ---------- Repo cards ---------- */
+    .repo {
+      display: flex;
+      flex-direction: column;
+      gap: .25rem;
+      padding: .9rem 1.25rem;
+      border-top: 1px solid rgba(0,0,0,.05);
+    }
+    .repo:first-of-type { border-top: none; }
+
+    a.repo-link {
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+    }
+    a.repo-link:hover { text-decoration: underline; }
+    .repo p { margin: 0; font-size: .9rem; line-height: 1.45; }
+
+    /* ---------- Utility ---------- */
+    .gh-icon {
+      width: 16px; height: 16px;
+      fill: currentColor;
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>Deep Learning at the Division of Virology and Immunology</h1>
   </header>
+
   <main id="content"></main>
 
   <script>
   /*
-   * -----------------------------
-   * How to maintain this page
-   * -----------------------------
-   * Each category entry below has a name and an array of repos.
-   * To add or remove repositories, just edit the catalogue object.
-   * No other changes are required.
+   * --------------------------------------------------------------------
+   *   Maintain the catalogue below. Add / remove entries – that’s it.
+   * --------------------------------------------------------------------
    */
   const catalogue = [
     {
@@ -93,28 +184,41 @@
     }
   ];
 
-  // ---------- Rendering ----------
-  const content = document.getElementById("content");
+  /* ---------- Render catalogue ---------- */
+  const container = document.getElementById('content');
 
   catalogue.forEach(cat => {
-    const section = document.createElement("section");
-    const details = document.createElement("details");
+    const section = document.createElement('section');
+    const details = document.createElement('details');
     details.open = true;
-    const summary = document.createElement("summary");
+
+    const summary = document.createElement('summary');
     summary.textContent = cat.category;
     details.appendChild(summary);
 
-    cat.repos.forEach(r => {
-      const card = document.createElement("div");
-      card.className = "repo-card";
-      card.innerHTML = `<a href="${r.url}" target="_blank" rel="noopener">${r.name}</a><p>${r.desc}</p>`;
-      details.appendChild(card);
+    cat.repos.forEach(({name, url, desc}) => {
+      const repo = document.createElement('div');
+      repo.className = 'repo';
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.className = 'repo-link';
+      link.innerHTML =
+        `<svg class="gh-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 005.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 018 4.58c.68.003 1.36.092 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>${name}`;
+      repo.appendChild(link);
+
+      const p = document.createElement('p');
+      p.textContent = desc;
+      repo.appendChild(p);
+
+      details.appendChild(repo);
     });
 
     section.appendChild(details);
-    content.appendChild(section);
+    container.appendChild(section);
   });
   </script>
 </body>
 </html>
-
