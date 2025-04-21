@@ -1,1 +1,120 @@
-Under construction!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Deep Learning at the Division of Virology and Immunology</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg: #fafafa;
+      --card-bg: #ffffff;
+      --accent: #0070f3;
+      --text: #333333;
+      --radius: 8px;
+      --shadow: 0 1px 4px rgba(0,0,0,.1);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;padding:0 1rem}
+    header{padding:2rem 0;text-align:center}
+    h1{font-size:clamp(1.8rem,3vw,2.4rem);font-weight:700}
+    section{margin:2rem 0}
+    details{border:1px solid #e0e0e0;border-radius:var(--radius);padding:1rem;background:var(--card-bg);box-shadow:var(--shadow)}
+    details + details{margin-top:1rem}
+    summary{cursor:pointer;font-size:1.2rem;font-weight:600;margin:-.5rem -.5rem 1rem -.5rem;padding:.5rem;border-radius:var(--radius);list-style:none}
+    summary::-webkit-details-marker{display:none}
+    summary:hover{background:#f0f0f0}
+    .repo-card{background:var(--card-bg);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow);margin:.5rem 0}
+    .repo-card a{color:var(--accent);font-weight:600;text-decoration:none;font-size:1.05rem}
+    .repo-card p{margin:.3rem 0 0 0;font-size:.9rem}
+    @media (min-width:700px){.repo-card{display:flex;align-items:center;gap:1rem}.repo-card p{margin:0}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Deep Learning at the Division of Virology and Immunology</h1>
+  </header>
+  <main id="content"></main>
+
+  <script>
+  /*
+   * -----------------------------
+   * How to maintain this page
+   * -----------------------------
+   * Each category entry below has a name and an array of repos.
+   * To add or remove repositories, just edit the catalogue object.
+   * No other changes are required.
+   */
+  const catalogue = [
+    {
+      category: "Neural‑network layers & building blocks",
+      repos: [
+        {name:"Onion.jl", url:"https://github.com/MurrellGroup/Onion.jl", desc:"Compile‑time safe, zero‑allocation neural layers."},
+        {name:"LowRankLayers.jl", url:"https://github.com/MurrellGroup/LowRankLayers.jl", desc:"Parameter‑efficient low‑rank linear/conv layers."},
+        {name:"ConditionalDensityLayers.jl", url:"https://github.com/MurrellGroup/ConditionalDensityLayers.jl", desc:"Coupling transforms for conditional normalising flows."},
+        {name:"RotationMap.jl", url:"https://github.com/MurrellGroup/RotationMap.jl", desc:"Lie‑group SO(3) parameterisations as differentiable layers."},
+        {name:"Diffusions.jl", url:"https://github.com/MurrellGroup/Diffusions.jl", desc:"Core schedules and samplers for diffusion models."},
+        {name:"Flowfusion.jl", url:"https://github.com/MurrellGroup/Flowfusion.jl", desc:"Macro‑based fusion of bijectors for faster flows."}
+      ]
+    },
+    {
+      category: "Protein‑structure & design models",
+      repos: [
+        {name:"InvariantPointAttention.jl", url:"https://github.com/MurrellGroup/InvariantPointAttention.jl", desc:"Julia port of AlphaFold 2’s IPA block."},
+        {name:"MessagePassingIPA.jl", url:"https://github.com/MurrellGroup/MessagePassingIPA.jl", desc:"Graph message passing combined with IPA."},
+        {name:"Boltz1.jl", url:"https://github.com/MurrellGroup/Boltz1.jl", desc:"Bindings for the Boltz‑1 diffusion‑folding model."},
+        {name:"ColabMPNN.jl", url:"https://github.com/MurrellGroup/ColabMPNN.jl", desc:"Julia wrapper for the ColabDesign protein MPNN."},
+        {name:"BackboneIdealization.jl", url:"https://github.com/MurrellGroup/BackboneIdealization.jl", desc:"Differentiable idealisation of polypeptide backbones."},
+        {name:"Backboner.jl", url:"https://github.com/MurrellGroup/Backboner.jl", desc:"Differentiable geometry utilities for protein chains."},
+        {name:"TMscore.jl", url:"https://github.com/MurrellGroup/TMscore.jl", desc:"Fast TM‑score binding for differentiable training."},
+        {name:"SeededAlignment.jl", url:"https://github.com/MurrellGroup/SeededAlignment.jl", desc:"Fast seed‑and‑extend aligner feeding MSA features."},
+        {name:"ProteinChains.jl", url:"https://github.com/MurrellGroup/ProteinChains.jl", desc:"Data structures for chain‑level protein ops."}
+      ]
+    },
+    {
+      category: "Generative & geometric flows",
+      repos: [
+        {name:"ManifoldFlows.jl", url:"https://github.com/MurrellGroup/ManifoldFlows.jl", desc:"Normalising flows respecting embedded manifold constraints."},
+        {name:"MaskedStates.jl", url:"https://github.com/MurrellGroup/MaskedStates.jl", desc:"Masked autoregressive flows on protein torsion states."}
+      ]
+    },
+    {
+      category: "NLP & tokenisation",
+      repos: [
+        {name:"HuggingFaceTokenizers.jl", url:"https://github.com/MurrellGroup/HuggingFaceTokenizers.jl", desc:"High‑performance bindings to 🤗 Tokenizers."},
+        {name:"HuggingFaceTransformers.jl", url:"https://github.com/MurrellGroup/HuggingFaceTransformers.jl", desc:"Experimental wrapper for 🤗 Transformers in Julia."}
+      ]
+    },
+    {
+      category: "Visualisation & embedding tools",
+      repos: [
+        {name:"ProtPlot.jl", url:"https://github.com/MurrellGroup/ProtPlot.jl", desc:"Makie‑based protein attention maps and ribbon plots."},
+        {name:"SeqUMAP.jl", url:"https://github.com/MurrellGroup/SeqUMAP.jl", desc:"GPU‑accelerated UMAP for sequence and latent‑space visualisation."}
+      ]
+    }
+  ];
+
+  // ---------- Rendering ----------
+  const content = document.getElementById("content");
+
+  catalogue.forEach(cat => {
+    const section = document.createElement("section");
+    const details = document.createElement("details");
+    details.open = true;
+    const summary = document.createElement("summary");
+    summary.textContent = cat.category;
+    details.appendChild(summary);
+
+    cat.repos.forEach(r => {
+      const card = document.createElement("div");
+      card.className = "repo-card";
+      card.innerHTML = `<a href="${r.url}" target="_blank" rel="noopener">${r.name}</a><p>${r.desc}</p>`;
+      details.appendChild(card);
+    });
+
+    section.appendChild(details);
+    content.appendChild(section);
+  });
+  </script>
+</body>
+</html>
+
