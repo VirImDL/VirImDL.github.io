@@ -239,6 +239,23 @@
         /* The overflow: hidden on .repo-card handles bottom corner radius */
     }
 
+    /* ---------- New Text styles ---------- */
+    .page-introduction {
+      margin-bottom: 2rem;
+      background-color: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--card-border);
+    }
+
+    .category-description {
+      margin-top: -0.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
 
     /* ---------- Responsive adjustments ---------- */
     @media (max-width: 1024px) { /* Adjust breakpoint if needed */
@@ -309,36 +326,75 @@
    *   Maintain the catalogue below. Add / remove entries – that's it.
    * --------------------------------------------------------------------
    */
+  
+  // Add top-level page text here
+  const pageIntroduction = `
+    <p>Welcome to our repository of deep learning tools at the Division of Virology and Immunology. 
+    This page showcases the various frameworks, models, and utilities developed by our team for 
+    advancing research in computational biology and machine learning.</p>
+    
+    <p>Our Julia libraries are designed to be interoperable, performant, and accessible to 
+    researchers across disciplines. Feel free to explore the categories below and visit 
+    our GitHub repositories for more details on each project.</p>
+  `;
+  
   const catalogue = [
     {
       category: "Frameworks",
       id: "frameworks",
+      description: "Core frameworks for deep learning in biological applications. These libraries provide foundational capabilities for building and training models on complex biological data.",
       repos: [
       {name:"Flowfusion.jl", url:"https://github.com/MurrellGroup/Flowfusion.jl", desc:"Unifying diffusion and flow matching on Euclidean & discrete spaces, and Riemannian manifolds.", imageUrl: "https://github.com/user-attachments/assets/ff7f25e6-441d-4840-ac9c-a849e7b57aa7"},
-      {name:"ForwardBackward.jl", url:"https://github.com/MurrellGroup/ForwardBackward.jl", desc:"Math and algorithms for sampling from and inference under stochastic processes.", imageUrl: "https://github.com/user-attachments/assets/bf8aa54d-c1d2-4bf7-aff4-47419c9bd1e7"}, // Added example image
+      {name:"ForwardBackward.jl", url:"https://github.com/MurrellGroup/ForwardBackward.jl", desc:"Math and algorithms for sampling from and inference under stochastic processes.", imageUrl: "https://github.com/user-attachments/assets/9d4087b7-b9ab-4e1a-9459-8818e3a083cb"}, // Added example image
       ]
     },
     {
       category: "Layers",
       id: "neural-layers",
+      description: "Specialized neural network layers designed for biological data processing. These components can be combined with standard layers to create models tailored to specific biological problems.",
       repos: [
-        {name:"Onion.jl", url:"https://github.com/MurrellGroup/Onion.jl", desc:"A collection of useful layers."},
-        {name:"LowRankLayers.jl", url:"https://github.com/MurrellGroup/LowRankLayers.jl", desc:"Low‑rank adapters to piggyback upon Dense layers (useful for finetuning)."}, // Placeholder
-        {name:"ConditionalDensityLayers.jl", url:"https://github.com/MurrellGroup/ConditionalDensityLayers.jl", desc:"Mapping an embedding to a continuous density." , imageUrl: "https://github.com/user-attachments/assets/ffcbc501-1aca-465a-956e-fd31cc76c739"},
+        {name:"Onion.jl", url:"https://github.com/MurrellGroup/Onion.jl", desc:"A collection of useful layers.", imageUrl: "https://github.com/user-attachments/assets/f387acd5-cb24-4796-af1e-c293eb4c06b9"},
+        {name:"LowRankLayers.jl", url:"https://github.com/MurrellGroup/LowRankLayers.jl", desc:"Low‑rank adapters to piggyback upon Dense layers (useful for finetuning).", imageUrl: "https://github.com/user-attachments/assets/d1b62d29-13c8-4a7e-8ba0-28fd3c75ed06"},
+        {name:"RandomFeatureMaps.jl", url:"https://github.com/MurrellGroup/RandomFeatureMaps.jl", desc:"Random projection layers with no trainable parameters.", imageUrl: "https://github.com/user-attachments/assets/cf0784bc-4730-4fe1-8075-f169d1cd2d43"},
+        {name:"ConditionalDensityLayers.jl", url:"https://github.com/MurrellGroup/ConditionalDensityLayers.jl", desc:"Mapping an embedding to a continuous density." , imageUrl: "https://github.com/user-attachments/assets/8498decf-9deb-4425-a69c-6db7c7c0a1d7"},
+      ]
+    },
+    {
+      category: "Large Language Models",
+      id: "llms",
+      description: "Implementation and adaptation of language model architectures for biological sequence analysis. These models leverage techniques from NLP for understanding protein and genomic sequences.",
+      repos: [
+      {name:"Jjama3.jl", url:"https://github.com/MurrellGroup/Jjama3.jl", desc:"A pure-Julia implementation of the Llama3 model family (and more).", imageUrl: "https://github.com/user-attachments/assets/5749604f-3fb8-413b-be36-27876527ef45"},
+      {name:"LogitSamplers.jl", url:"https://github.com/MurrellGroup/LogitSamplers.jl", desc:"Transform your logits. Top-p, top-k, and more.", imageUrl: "https://github.com/user-attachments/assets/050cc1df-8761-4ca4-89c2-e8f12a0a66f0"},
+      {name:"HuggingFaceTransformers.jl", url:"https://github.com/MurrellGroup/HuggingFaceTransformers.jl", desc:"Julia wrapper for HuggingFace Transformers in Julia."},
+      {name:"HuggingFaceTokenizers.jl", url:"https://github.com/MurrellGroup/HuggingFaceTokenizers.jl", desc:"Julia wrapper for HuggingFace Tokenizers in Julia."}
       ]
     },
     {
       category: "Rotation and translation invariance",
       id: "rototrans",
+      description: "Libraries for handling 3D spatial transformations in neural networks. Particularly useful for protein structure prediction and molecule modeling where spatial orientation matters.",
       repos: [
-        {name:"InvariantPointAttention.jl", url:"https://github.com/MurrellGroup/InvariantPointAttention.jl", desc:"AlphaFold 2's IPA, with extra tricks (softmax1, and block-wise RoPE).", imageUrl: "https://github.com/user-attachments/assets/e0490c77-5a0a-4f2f-a218-643990ecf8dd"}, // Placeholder
-        {name:"MessagePassingIPA.jl", url:"https://github.com/MurrellGroup/MessagePassingIPA.jl", desc:"IPA, but for graph neural networks."},
-        {name:"RotationMap.jl", url:"https://github.com/MurrellGroup/RotationMap.jl", desc:"A differentiable parameterization of SO(3) rotations (from `An analysis of svd for deep rotation estimation`)."},
+      {name:"RotationMap.jl", url:"https://github.com/MurrellGroup/RotationMap.jl", desc:"A differentiable parameterization of SO(3) rotations (from `An analysis of svd for deep rotation estimation`).", imageUrl: "https://github.com/user-attachments/assets/79011b22-16ad-4bd4-aae4-569a264c334c"},
+        {name:"InvariantPointAttention.jl", url:"https://github.com/MurrellGroup/InvariantPointAttention.jl", desc:"AlphaFold 2's IPA, with extra tricks (softmax1, and block-wise RoPE).", imageUrl: "https://github.com/user-attachments/assets/66550f27-a6f2-44e4-878e-d94b59c3488d"}, // Placeholder
+        {name:"MessagePassingIPA.jl", url:"https://github.com/MurrellGroup/MessagePassingIPA.jl", desc:"IPA, but for graph neural networks.", imageUrl: "https://github.com/user-attachments/assets/dc19db9a-c5fe-468d-b25b-1d1a430a385d"},
+        {name:"BatchedTransformations.jl", url:"https://github.com/MurrellGroup/BatchedTransformations.jl", desc:"An interface for applying transformations to data in batches.", imageUrl: "https://github.com/user-attachments/assets/2a700892-7a4a-4922-be31-a2f9016dfb14"},
+        
+      ]
+    },
+    {
+      category: "Optimization",
+      id: "optimization",
+      description: "Tools for training deep learning models.",
+      repos: [
+      {name:"CannotWaitForTheseOptimisers.jl", url:"https://github.com/MurrellGroup/CannotWaitForTheseOptimisers.jl", desc:"Bleeding edge experimental optimisers, including Muon and Apollo", imageUrl: "https://github.com/user-attachments/assets/8dd9cc42-db3b-4d75-8d91-dcf908aa5fee"},
+      {name:"LearningSchedules.jl", url:"https://github.com/MurrellGroup/LearningSchedules.jl", desc:"Simple learning rate schedules.", imageUrl: "https://github.com/user-attachments/assets/47bd0a3c-84c5-4c78-a1f9-21cb02c49e23"},
       ]
     },
     {
       category: "Protein-specific models and utils",
       id: "protein-models",
+      description: "Tools specifically designed for protein structure analysis, visualization, and modeling. These libraries complement our more general-purpose frameworks when working with protein data.",
       repos: [
       {name:"ProteinChains.jl", url:"https://github.com/MurrellGroup/ProteinChains.jl", desc:"Convert PDB entries to deep-learning compatible data structures.", imageUrl: "https://github.com/user-attachments/assets/8861edc7-9344-4512-b25c-bd583b324103"},
       {name:"BackboneIdealization.jl", url:"https://github.com/MurrellGroup/BackboneIdealization.jl", desc:"Differentiable idealisation of backbone geometry - useful for dihedral models", imageUrl: "https://github.com/user-attachments/assets/771b3274-580e-4823-a2d3-b0c95aadecec"},
@@ -349,18 +405,9 @@
       ]
     },
     {
-      category: "Large Language Models",
-      id: "llms",
-      // imageUrl: "https://example.com/images/llm.jpg", // Optional category image (removed for now)
-      repos: [
-      {name:"Jjama3.jl", url:"https://github.com/MurrellGroup/Jjama3.jl", desc:"A pure-Julia implementation of the Llama3 model family (and more).", imageUrl: "https://github.com/user-attachments/assets/5749604f-3fb8-413b-be36-27876527ef45"},
-      {name:"HuggingFaceTransformers.jl", url:"https://github.com/MurrellGroup/HuggingFaceTransformers.jl", desc:"Julia wrapper for HuggingFace Transformers in Julia."},
-      {name:"HuggingFaceTokenizers.jl", url:"https://github.com/MurrellGroup/HuggingFaceTokenizers.jl", desc:"Julia wrapper for HuggingFace Tokenizers in Julia."}
-      ]
-    },
-    {
       category: "Visualisation & embedding tools",
       id: "visualization-tools",
+      description: "Tools for visualizing and embedding complex biological data. These libraries help researchers gain insights from high-dimensional data and communicate findings effectively.",
       repos: [
         {name:"SeqUMAP.jl", url:"https://github.com/MurrellGroup/SeqUMAP.jl", desc:"UMAP, but for variable-length nucleotide and amino acid sequences", imageUrl: "https://github.com/user-attachments/assets/de3c55e5-0824-4cc0-a6ff-45739b225ed0"}
       ]
@@ -416,6 +463,14 @@
 
   /* Render content */
   const contentContainer = document.getElementById('content');
+  
+  // Add page introduction if defined
+  if (pageIntroduction) {
+    const introSection = document.createElement('div');
+    introSection.className = 'page-introduction';
+    introSection.innerHTML = pageIntroduction;
+    contentContainer.appendChild(introSection);
+  }
 
   catalogue.forEach(cat => {
     // Create section
@@ -434,6 +489,14 @@
     sectionHeader.appendChild(title);
 
     section.appendChild(sectionHeader);
+    
+    // Add category description if available
+    if (cat.description) {
+      const description = document.createElement('div');
+      description.className = 'category-description';
+      description.innerHTML = cat.description;
+      section.appendChild(description);
+    }
 
     // Create repo grid
     const repoGrid = document.createElement('div');
