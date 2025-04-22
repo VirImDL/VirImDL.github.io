@@ -2,50 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Deep Learning at the Division of Virology and Immunology</title>
+  <title>Deep Learning @ the Division of Virology and Immunology, MTC, Karolinska</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Typography -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <style>
     /* ---------- Theme palette ---------- */
     :root {
-      --bg-primary: #f0f9ff;
+      /* Light mode - improved header contrast */
+      --bg-primary: #fcfaff;
       --bg-secondary: #ffffff;
-      --nav-bg: #e0f2fe;
-      --header-bg: #0ea5e9;
+      --nav-bg: #f5f0ff;
+      --header-bg: #5b46e5;  /* Solid color instead of gradient for better contrast */
       --header-text: #ffffff;
-      --text-primary: #0f172a;
-      --text-secondary: #475569;
-      --accent: #0ea5e9;
-      --accent-hover: #0284c7;
+      --text-primary: #2d3748;
+      --text-secondary: #5a5582;
+      --accent: #8b5cf6;
+      --accent-hover: #7c3aed;
       --card-bg: #ffffff;
-      --card-border: #e2e8f0;
-      --card-border-hover: #cbd5e0;
-      --section-heading: #0f172a;
-      --nav-active-bg: #bae6fd;
-      --nav-active-text: #0369a1;
-      --shadow: 0 2px 10px rgba(0,0,0,0.05);
-      --radius: 8px;
+      --card-border: #f0e7ff;
+      --card-border-hover: #d8b4fe;
+      --section-heading: #4c1d95;
+      --nav-active-bg: #ede9fe;
+      --nav-active-text: #6d28d9;
+      --shadow: 0 4px 14px rgba(124, 58, 237, 0.08);
+      --radius: 10px;
     }
 
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg-primary: #0f172a;
-        --bg-secondary: #1e293b;
-        --nav-bg: #1e293b;
-        --header-bg: #0284c7;
-        --header-text: #f8fafc;
+        /* Dark mode - more professional, less "glowing" */
+        --bg-primary: #1a1a2e;
+        --bg-secondary: #282a45;
+        --nav-bg: #282a45;
+        --header-bg: #4338ca;  /* Solid color instead of gradient */
+        --header-text: #ffffff;
         --text-primary: #f1f5f9;
-        --text-secondary: #94a3b8;
-        --accent: #38bdf8;
-        --accent-hover: #0ea5e9;
-        --card-bg: #1e293b;
-        --card-border: #334155;
-        --card-border-hover: #475569;
-        --section-heading: #f1f5f9;
-        --nav-active-bg: #0c4a6e;
-        --nav-active-text: #38bdf8;
-        --shadow: 0 2px 10px rgba(0,0,0,0.2);
+        --text-secondary: #a8a3c5;  /* Less saturated */
+        --accent: #8b5cf6;
+        --accent-hover: #7c3aed;
+        --card-bg: #282a45;
+        --card-border: #363b5e;
+        --card-border-hover: #414878;
+        --section-heading: #e2e0ff;  /* Less saturated heading */
+        --nav-active-bg: #3730a3;
+        --nav-active-text: #c7d2fe;  /* Less saturated active text */
+        --shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
       }
     }
 
@@ -242,11 +244,14 @@
     /* ---------- New Text styles ---------- */
     .page-introduction {
       margin-bottom: 2rem;
-      background-color: var(--card-bg);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--card-border);
+      background-color: transparent;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
+      border: none;
+      color: var(--text-primary);
+      font-size: 1.1rem;
+      line-height: 1.6;
     }
 
     .category-description {
@@ -300,11 +305,36 @@
       fill: currentColor;
       flex-shrink: 0; /* Prevent icon from shrinking */
     }
+
+    /* Footer styles */
+    .footer {
+      background-color: var(--nav-bg);
+      color: var(--text-secondary);
+      padding: 1rem 2rem;
+      text-align: center;
+      margin-top: 2rem;
+      border-top: 1px solid var(--card-border);
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    
+    .footer a:hover {
+      text-decoration: underline;
+      color: var(--accent-hover);
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>Deep Learning at the Division of Virology and Immunology</h1>
+    <h1>Deep Learning @ the Division of Virology and Immunology, MTC, Karolinska</h1>
   </header>
 
   <div class="container">
@@ -320,6 +350,13 @@
     </main>
   </div>
 
+  <!-- Add this new footer section before the script tag -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>Contact: <a href="mailto:benjamin.murrell@ki.se">benjamin.murrell@ki.se</a> | Division of Virology and Immunology, MTC, Karolinska</p>
+    </div>
+  </footer>
+
   <script>
   /*
    * --------------------------------------------------------------------
@@ -329,7 +366,7 @@
   
   // Add top-level page text here
   const pageIntroduction = `
-    <p>A collection of interoperable deep learning packages developed by researchers at the Division of Virology and Immunology, at MTC, Karolinska.</p>
+    <p>An ecosystem of (mostly) interoperable deep learning packages, developed and maintained by researchers at the Division of Virology and Immunology, at MTC, Karolinska. </p>
   `;
   
   const catalogue = [
