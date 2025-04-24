@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Murrell Group Code</title>
+  <title>Deep Learning @ the Division of Virology and Immunology, MTC, Karolinska</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <!-- Add favicon using inline SVG -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M20,80 L20,20 L50,50 L80,20 L80,80' stroke='%238b5cf6' stroke-width='8' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>" type="image/svg+xml">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='30' cy='30' r='10' fill='%238b5cf6'/><circle cx='70' cy='30' r='10' fill='%238b5cf6'/><circle cx='30' cy='70' r='10' fill='%238b5cf6'/><circle cx='70' cy='70' r='10' fill='%238b5cf6'/><line x1='30' y1='30' x2='70' y2='30' stroke='%238b5cf6' stroke-width='3'/><line x1='30' y1='30' x2='70' y2='70' stroke='%238b5cf6' stroke-width='3'/><line x1='30' y1='70' x2='70' y2='30' stroke='%238b5cf6' stroke-width='3'/><line x1='30' y1='70' x2='70' y2='70' stroke='%238b5cf6' stroke-width='3'/></svg>" type="image/svg+xml">
   
   <!-- Typography -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -338,7 +338,7 @@
 </head>
 <body>
   <header>
-    <h1>Murrell Group @ KI</h1>
+    <h1>Deep Learning @ the Division of Virology and Immunology, MTC, Karolinska</h1>
   </header>
 
   <div class="container">
@@ -370,24 +370,16 @@
   
   // Add top-level page text here
   const pageIntroduction = `
-    <p>A collection of (mostly) Julia packages developed in the Murrell lab at MTC, Karolinska.</p>
+    <p>An ecosystem of (mostly) interoperable deep learning packages, developed and maintained by researchers at the Division of Virology and Immunology, at MTC, Karolinska. </p>
   `;
   
   const catalogue = [
     {
-      category: "Phylogenetics",
-      id: "phylo",
-      repos: [
-      {name:"MolecularEvolution.jl", url:"https://github.com/MurrellGroup/MolecularEvolution.jl", desc:"A flexible framework for phylogenetic model development and inference.", imageUrl: "https://github.com/user-attachments/assets/80d60d7c-7317-4ecb-8536-f6c13d7990ee"},
-      {name:"CodonMolecularEvolution.jl", url:"https://github.com/MurrellGroup/CodonMolecularEvolution.jl", desc:"A collection of bleeding-edge codon models.", imageUrl: "https://github.com/user-attachments/assets/6ec35dc3-f59e-4da4-a484-0397646a069b"}, // Added example image
-      ]
-    },
-    {
-      category: "DL Frameworks",
+      category: "Frameworks",
       id: "frameworks",
       repos: [
-      {name:"Flowfusion.jl", url:"https://github.com/MurrellGroup/Flowfusion.jl", desc:"Unifying diffusion and flow matching on Euclidean & discrete spaces, and Riemannian manifolds, for generative deep learning.", imageUrl: "https://github.com/user-attachments/assets/ff7f25e6-441d-4840-ac9c-a849e7b57aa7"},
-      {name:"ForwardBackward.jl", url:"https://github.com/MurrellGroup/ForwardBackward.jl", desc:"Math and algorithms for sampling from and inference under stochastic processes.", imageUrl: "https://github.com/user-attachments/assets/9d4087b7-b9ab-4e1a-9459-8818e3a083cb"}, // Added example image      
+      {name:"Flowfusion.jl", url:"https://github.com/MurrellGroup/Flowfusion.jl", desc:"Unifying diffusion and flow matching on Euclidean & discrete spaces, and Riemannian manifolds.", imageUrl: "https://github.com/user-attachments/assets/ff7f25e6-441d-4840-ac9c-a849e7b57aa7"},
+      {name:"ForwardBackward.jl", url:"https://github.com/MurrellGroup/ForwardBackward.jl", desc:"Math and algorithms for sampling from and inference under stochastic processes.", imageUrl: "https://github.com/user-attachments/assets/9d4087b7-b9ab-4e1a-9459-8818e3a083cb"}, // Added example image
       ]
     },
     {
@@ -434,25 +426,16 @@
       ]
     },
     {
-      category: "Protein-specific packages",
+      category: "Protein-specific models and utils",
       id: "protein-models",
       //description: "Tools specifically designed for protein structure analysis, visualization, and modeling. These libraries complement our more general-purpose frameworks when working with protein data.",
       repos: [
       {name:"ProteinChains.jl", url:"https://github.com/MurrellGroup/ProteinChains.jl", desc:"Convert PDB entries to deep-learning compatible data structures.", imageUrl: "https://github.com/user-attachments/assets/8861edc7-9344-4512-b25c-bd583b324103"},
       {name:"BackboneIdealization.jl", url:"https://github.com/MurrellGroup/BackboneIdealization.jl", desc:"Differentiable idealisation of backbone geometry - useful for dihedral models", imageUrl: "https://github.com/user-attachments/assets/771b3274-580e-4823-a2d3-b0c95aadecec"},
-      {name:"AssigningSecondaryStructure.jl", url:"https://github.com/MurrellGroup/AssigningSecondaryStructure.jl", desc:"Julia implementation of a simplified DSSP algorithm.", imageUrl: "https://github.com/user-attachments/assets/be5167b9-e67d-4584-a750-2d81abeb2d8f"},
       {name:"ProtPlot.jl", url:"https://github.com/MurrellGroup/ProtPlot.jl", desc:"Makie‑based protein attention maps and ribbon plots.", imageUrl: "https://github.com/user-attachments/assets/35f74a99-00be-4c01-bb56-8508bf0951d2"},
       {name:"Boltz1.jl - a wrapper", url:"https://github.com/MurrellGroup/Boltz1.jl", desc:"Julia wrapper for the Boltz‑1 diffusion‑folding model."},
       {name:"ColabMPNN.jl - a wrapper", url:"https://github.com/MurrellGroup/ColabMPNN.jl", desc:"Julia wrapper for the ColabDesign version of ProteinMPNN."},
       {name:"TMscore.jl - a wrapper", url:"https://github.com/MurrellGroup/TMscore.jl", desc:"Julia wrapper for TM‑score calculations."},
-      ]
-    },
-    {
-      category: "Utils",
-      id: "utils",
-      //description: "Tools for visualizing and embedding complex biological data. These libraries help researchers gain insights from high-dimensional data and communicate findings effectively.",
-      repos: [
-        {name:"MergedArrays.jl", url:"https://github.com/MurrellGroup/MergedArrays.jl", desc:"Concatenates arrays, to circumvent a Julia GC slowdown when you have millions of references.", imageUrl: "https://github.com/user-attachments/assets/58e54e05-1f55-48cb-ac2a-b2d9eb5824af"}
       ]
     },
     {
@@ -461,25 +444,6 @@
       //description: "Tools for visualizing and embedding complex biological data. These libraries help researchers gain insights from high-dimensional data and communicate findings effectively.",
       repos: [
         {name:"SeqUMAP.jl", url:"https://github.com/MurrellGroup/SeqUMAP.jl", desc:"UMAP, but for variable-length nucleotide and amino acid sequences", imageUrl: "https://github.com/user-attachments/assets/de3c55e5-0824-4cc0-a6ff-45739b225ed0"}
-      ]
-    },
-    {
-      category: "SARS-CoV-2 Variant Models",
-      id: "coviddynamics",
-      repos: [
-      {name:"SARS-CoV-2 Lineage Competition", url:"https://github.com/MurrellGroup/lineages", desc:"Results for a Bayesian model of global SARS-CoV-2 lineage competition.", imageUrl: "https://github.com/user-attachments/assets/731df70a-042a-4461-af7d-3d8c9f8bb63f"},
-      {name:"MultinomialLogisticGrowth", url:"https://github.com/MurrellGroup/MultinomialLogisticGrowth", desc:"For fitting multinomial logistic growth models to variant data.", imageUrl: "https://github.com/user-attachments/assets/d37aced7-77b5-4d29-9a9a-e0123f7d44a8"}, // Added example image
-      ]
-    },
-    {
-      category: "NGS analysis",
-      id: "ngs",
-      repos: [
-      {name:"Nanobody Miner", url:"https://github.com/MurrellGroup/NanobodyMiner", desc:"A julia package for repertoire scale nanobody enrichment analysis.", imageUrl: "https://github.com/user-attachments/assets/db7ecf54-2c6f-42c9-8822-54c2d6e6410b"},
-      {name:"CHMMera.jl", url:"https://github.com/MurrellGroup/CHMMera.jl", desc:"Fast chimera detection with HMMs.", imageUrl: "https://github.com/user-attachments/assets/ebc83f6e-1a3c-4bf0-abab-77efd08d8d7e"},
-      {name:"CHMMairra.jl", url:"https://github.com/MurrellGroup/CHMMairra.jl", desc:"Using CHMMera.jl for detecting PCR-induced recombinants in immune repertoire datasets.", imageUrl: "https://github.com/user-attachments/assets/a3286a1b-0739-4e9f-80ba-4b2f3e4c3e05"},
-      {name:"PORPID.jl", url:"https://github.com/MurrellGroup/PORPID.jl", desc:"For the analysis of UMI/PID-tagged long read viral sequencing data.", imageUrl: "https://github.com/user-attachments/assets/b1164547-406f-42b3-b345-6dde64c0cf4a"},
-      {name:"PORPIDpipeline", url:"https://github.com/MurrellGroup/PORPIDpipeline", desc:"A snakemake pipeline for PORPID, with postprocessing.", imageUrl: "https://github.com/user-attachments/assets/3bf62874-06e4-41d4-aa23-6ed50bbc6285"}
       ]
     }
   ];
